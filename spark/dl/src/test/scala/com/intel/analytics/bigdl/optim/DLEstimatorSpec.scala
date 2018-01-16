@@ -92,7 +92,7 @@ class DLEstimatorSpec extends FlatSpec with Matchers with BeforeAndAfter {
   }
 
   "An DLEstimator" should "throws exception when DLModel is predicting with DLModel.train=True" in {
-    val model = new Sequential().add(Linear[Float](6, 4))
+    val model = new Sequential().add(Linear[Float](6, 2))
       .add(Dropout[Float](initP = 0.5))
       .add(LogSoftMax[Float])
     val criterion = ClassNLLCriterion[Float]()
@@ -109,7 +109,7 @@ class DLEstimatorSpec extends FlatSpec with Matchers with BeforeAndAfter {
       case Row(label: Double, prediction: Seq[Double]) =>
         label == prediction.indexOf(prediction.max) + 1
     }.count()
-    assert(correct > nRecords * 0.9)
+    assert(correct > nRecords * 0.8)
   }
 
   "An DLEstimator" should "support different FEATURE types" in {
